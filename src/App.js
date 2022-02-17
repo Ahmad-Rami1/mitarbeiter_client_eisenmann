@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+import React, { useContext, useEffect } from "react";
 import './App.css';
-
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Uebersicht from './pages/Uebersicht';
+import { AuthContext } from "./context/AuthContext";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { logout, loginCall } from "./apiCalls";
 function App() {
+
+  const { user, dispatch} = useContext(AuthContext);
+
+  function AuthRoute ({children}) {
+    if(!user){
+      //Not signed in
+      return <Navigate to="/login" />
+    }
+    //Signed in
+    return children
+  }
+
+  useEffect(() => {
+
+    const timeStampNow =  +new Date;
+    user?.expireAt*1000 < timeStampNow   && logout(dispatch) 
+    
+
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+<Routes>
+  <Route path="/" element={<AuthRoute><Home /></AuthRoute>} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/uebersicht" element={<AuthRoute><Uebersicht /></AuthRoute>} />
+</Routes>
+
+
+
+  </>
   );
 }
 
