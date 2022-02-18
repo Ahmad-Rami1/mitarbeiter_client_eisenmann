@@ -5,9 +5,9 @@ import publicRequest from "../requestMethods";
 const SchichtEintragen = () => {
   const { user } = useContext(AuthContext);
 
-  const config = {
-    headers: { Authorization: `Bearer ${user.jwt}` },
-  };
+  // const config = {
+  //   headers: { Authorization: `Bearer ${user.jwt}` },
+  // };
 
   const [vma28, setvma28] = useState(false);
   const [materialTransport, setMaterialTransport] = useState("0");
@@ -49,68 +49,68 @@ const SchichtEintragen = () => {
   };
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    const data = {
-      projektnr: schichtData.projektnr,
-      auftragnr: schichtData.auftragnr,
-      datumAbfahrt: schichtData.datumAbfahrt,
-      dienstbeginn: schichtData.dienstbeginn,
-      dienstende: schichtData.dienstende,
-      Pause: schichtData.Pause,
-      bauKm: schichtData.bauKm === "" ? "0" : schichtData.bauKm,
-      pkwKm: schichtData.pkwKm === "" ? "0" : schichtData.pkwKm,
-      materialtransport: materialTransport,
-      abfahrtTime: schichtData.abfahrtTime,
-      ankunftTime: schichtData.ankunftTime,
-      qual: schichtData.qual,
-      bereitStd: schichtData.bereitStd === "" ? "0" : schichtData.bereitStd,
-      bereitMin: schichtData.bereitMin === "" ? "0" : schichtData.bereitMin,
-      stdzettel: schichtData.stdzettel,
-      einsatzort: schichtData.einsatzort,
-      bundesland: user.bundesland,
-      mitarbeiterId: user.id,
-      vornameName: user.vorname + " " + user.nachname,
-      vmaJson: vma28,
-    };
-    try {
-      publicRequest
-        .post("schicht/insert_schicht.php", JSON.stringify(data), config)
-        .then((res) => {
-          if (res.status === 200) {
-            alert("die Schicht wurde erfolgreich eingetragen");
-            //  window.location.reload();
-            setSchichtData({
-              projektnr: "",
-              auftragnr: "",
-              datumAbfahrt: "",
-              dienstbeginn: "",
-              dienstende: "",
-              Pause: "30",
-              bauKm: "",
-              pkwKm: "",
-              abfahrtTime: "",
-              ankunftTime: "",
-              qual: "100",
-              bereitStd: "0",
-              bereitMin: "0",
-              stdzettel: "",
-              einsatzort: "",
-            });
-            setvma28(false);
-            setMaterialTransport("0");
-          }
-        })
-        .catch((err) => {
-          if (err.response) {
-            alert(
-              "schicht nicht eingetragen! Bitte prüfen wie die zeitliche Reihenfolge der Uhrzeiten!"
-            );
-          }
-        });
-    } catch (err) {
-      alert("schicht nicht eingetragen!");
-      console.log(err);
-    }
+    // e.preventDefault();
+    // const data = {
+    //   projektnr: schichtData.projektnr,
+    //   auftragnr: schichtData.auftragnr,
+    //   datumAbfahrt: schichtData.datumAbfahrt,
+    //   dienstbeginn: schichtData.dienstbeginn,
+    //   dienstende: schichtData.dienstende,
+    //   Pause: schichtData.Pause,
+    //   bauKm: schichtData.bauKm === "" ? "0" : schichtData.bauKm,
+    //   pkwKm: schichtData.pkwKm === "" ? "0" : schichtData.pkwKm,
+    //   materialtransport: materialTransport,
+    //   abfahrtTime: schichtData.abfahrtTime,
+    //   ankunftTime: schichtData.ankunftTime,
+    //   qual: schichtData.qual,
+    //   bereitStd: schichtData.bereitStd === "" ? "0" : schichtData.bereitStd,
+    //   bereitMin: schichtData.bereitMin === "" ? "0" : schichtData.bereitMin,
+    //   stdzettel: schichtData.stdzettel,
+    //   einsatzort: schichtData.einsatzort,
+    //   bundesland: user.bundesland,
+    //   mitarbeiterId: user.id,
+    //   vornameName: user.vorname + " " + user.nachname,
+    //   vmaJson: vma28,
+    // };
+    // try {
+    //   publicRequest
+    //     .post("schicht/insert_schicht.php", JSON.stringify(data), config)
+    //     .then((res) => {
+    //       if (res.status === 200) {
+    //         alert("die Schicht wurde erfolgreich eingetragen");
+    //         //  window.location.reload();
+    //         setSchichtData({
+    //           projektnr: "",
+    //           auftragnr: "",
+    //           datumAbfahrt: "",
+    //           dienstbeginn: "",
+    //           dienstende: "",
+    //           Pause: "30",
+    //           bauKm: "",
+    //           pkwKm: "",
+    //           abfahrtTime: "",
+    //           ankunftTime: "",
+    //           qual: "100",
+    //           bereitStd: "0",
+    //           bereitMin: "0",
+    //           stdzettel: "",
+    //           einsatzort: "",
+    //         });
+    //         setvma28(false);
+    //         setMaterialTransport("0");
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       if (err.response) {
+    //         alert(
+    //           "schicht nicht eingetragen! Bitte prüfen wie die zeitliche Reihenfolge der Uhrzeiten!"
+    //         );
+    //       }
+    //     });
+    // } catch (err) {
+    //   alert("schicht nicht eingetragen!");
+    //   console.log(err);
+    // }
   };
 
   //   useEffect(() => {

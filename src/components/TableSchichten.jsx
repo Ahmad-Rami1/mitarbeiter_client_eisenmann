@@ -16,18 +16,18 @@ const TableSchichten = (props) => {
   let  mt= 0;
   let  km=0;
 
-  const config = {
-    headers: { Authorization: `Bearer ${user.jwt}` },
-  };
+  // const config = {
+  //   headers: { Authorization: `Bearer ${user.jwt}` },
+  // };
 
-  useEffect(() => {
-    const getData = async() => {
-      const res = await publicRequest.get(`schicht/get_schichten.php?month=${props.month}&year=${props.year}&mitarbeiterId=${user.id}`, config )
-      setSchichten(res.data.data);
+  // useEffect(() => {
+  //   const getData = async() => {
+  //     const res = await publicRequest.get(`schicht/get_schichten.php?month=${props.month}&year=${props.year}&mitarbeiterId=${user.id}`, config )
+  //     setSchichten(res.data.data);
      
-      }
-    getData();
-  }, [props.month, props.year])
+  //     }
+  //   getData();
+  // }, [props.month, props.year])
 
 const EinzelSchicht = (props) => (
 

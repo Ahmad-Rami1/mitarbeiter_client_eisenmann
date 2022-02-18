@@ -30,9 +30,13 @@ function App() {
   return (
     <>
 <Routes>
-  <Route path="/" element={<AuthRoute><Home /></AuthRoute>} />
+  {/* <Route path="/" element={<AuthRoute><Home /></AuthRoute>} /> */}
   <Route path="/login" element={<Login />} />
-  <Route path="/uebersicht" element={<AuthRoute><Uebersicht /></AuthRoute>} />
+  {/* <Route path="/uebersicht" element={<AuthRoute><Uebersicht /></AuthRoute>} /> */}
+
+  <Route path="/" element={<Home />} />
+ 
+  <Route path="/uebersicht" element={<Uebersicht />} />
 </Routes>
 
 
