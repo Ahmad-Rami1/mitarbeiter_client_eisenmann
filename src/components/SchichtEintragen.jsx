@@ -77,7 +77,7 @@ const SchichtEintragen = () => {
         .post("schicht/insert_schicht.php", JSON.stringify(data), config)
         .then((res) => {
           if (res.status === 200) {
-            alert("die Schicht wurde erfolgreich eingetragen");
+            alert("Schicht wurde erfolgreich eingetragen");
             //  window.location.reload();
             setSchichtData({
               projektnr: "",
@@ -103,7 +103,7 @@ const SchichtEintragen = () => {
         .catch((err) => {
           if (err.response) {
             alert(
-              "schicht nicht eingetragen! Bitte prüfen wie die zeitliche Reihenfolge der Uhrzeiten!"
+              "Schicht nicht eingetragen! Bitte prüfen wie die zeitliche Reihenfolge der Uhrzeiten."
             );
           }
         });

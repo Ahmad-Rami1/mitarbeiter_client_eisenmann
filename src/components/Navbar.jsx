@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { logout } from "../apiCalls";
-import { Link  } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
   const { user, dispatch } = useContext(AuthContext);
@@ -27,21 +27,29 @@ const Navbar = (props) => {
         id="navbarSupportedContent"
       >
         <ul className="navbar-nav ml-auto">
-      <li className={  props.page ==="home" ? "nav-item active" : "nav-item"}> 
-          <Link className="nav-link" to="/">
+          <li
+            className={props.page === "home" ? "nav-item active" : "nav-item"}
+          >
+            <Link className="nav-link" to="/">
               Schicht eintragen
             </Link>
           </li>
 
-          <li className={  props.page ==="uebersicht" ? "nav-item active" : "nav-item"}> 
+          <li
+            className={
+              props.page === "uebersicht" ? "nav-item active" : "nav-item"
+            }
+          >
             <Link className="nav-link" to="/uebersicht">
-            
               Übersicht
-           
             </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" style={{cursor: "pointer"}} onClick={()=>logout(dispatch)}>
+            <a
+              className="nav-link"
+              style={{ cursor: "pointer" }}
+              onClick={() => logout(dispatch)}
+            >
               Ausloggen
             </a>
           </li>

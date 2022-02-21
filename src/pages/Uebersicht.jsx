@@ -9,12 +9,12 @@ const Uebersicht = () => {
 
   const handleChangeMonth = (value) => {
     setMonth(value);
-    console.log(month);
+
   }
 
   const handleChangeYear = (value) => {
     setYear(value);
-    console.log(year);
+
   }
 
   return (

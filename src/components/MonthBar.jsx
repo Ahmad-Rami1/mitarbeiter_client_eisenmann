@@ -9,15 +9,15 @@ const {user} = useContext(AuthContext);
   return (
     <div className="container-fluid px-0 frm">
       <div className="container">
-        <form action="uebersichtSchichten.php" method="POST" className="p-1 mb-0 ">
-          <div className="row mt-2">
-            <div className="col-12 col-sm-12 col-md-3 col-lg-2 d-flex align-items-center">
-              <div className="d-flex justify-content-center mt-1 bluu123">
+        {/* <form action="uebersichtSchichten.php" method="POST" className="p-1 mb-0 "> */}
+          <div className="row mt-2 ">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-2 d-flex align-items-center">
+              <div className="d-flex justify-content-center mt-1 bluu123 bld">
                 {user && user.vorname + " " + user.nachname}
               </div>
             </div>
 
-            <div className="col-12 col-sm-12 col-md-5 col-lg-4 p-0 bluu zeitraum d-flex justify-content-center align-items-center mt-2 my-2 bluu zeitraum smallScreenText">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-6 bluu zeitraum d-flex justify-content-between align-items-center mt-2 my-2 bluu zeitraum smallScreenText">
               Zeitraum
               <div className="control-group d-flex align-items-center mt-1">
                 <select
@@ -49,12 +49,8 @@ const {user} = useContext(AuthContext);
                 </select>
               </div>
             </div>
-
-            <div className="d-flex align-items-center col-12 col-sm-12 col-md-4 col-lg-4 no-print mb-2">
-             
-            </div>
           </div>
-        </form>
+        {/* </form> */}
       </div>
     </div>
   );

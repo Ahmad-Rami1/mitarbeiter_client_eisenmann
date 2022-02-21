@@ -377,14 +377,14 @@ select.dispoSelect option {
 }
 
 .summenContainer {
-  width: 50rem;
+  width: 30rem;
   background: #DDD9D9;
 background: -moz-linear-gradient(-45deg, #DDD9D9 0%, #AFAFAF 100%);
 background: -webkit-linear-gradient(-45deg, #DDD9D9 0%, #AFAFAF 100%);
 background: linear-gradient(135deg, #DDD9D9 0%, #AFAFAF 100%);
  
   color: #27348B;
-  border-radius: 15px;
+  border-radius: 10px;
   margin-bottom: 15px;
 }
 
@@ -407,11 +407,11 @@ background: linear-gradient(135deg, #DDD9D9 0%, #AFAFAF 100%);
   }
 
   .minHeight20 {
-    min-height: 40px;
+    min-height: 20px;
   }
 
   .minHeight60 {
-    min-height: 60px;
+    min-height: 40px;
   }
 }
 
@@ -615,12 +615,13 @@ tr.tabledit-deleted-row {
 }
 
 .backgroundDark {
-  background-color: #d8d8d8!important;
+  
+  background-color: #a3a3a3!important;
   transition: all 0.3s ease;
 }
 
 .backgroundLight {
-  background-color: #b9b9b9!important;
+  background-color: #d8d8d8!important;
   transition: all 0.3s ease;
 }
 

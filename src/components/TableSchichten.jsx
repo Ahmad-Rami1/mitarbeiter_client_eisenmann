@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import { AuthContext } from "../context/AuthContext";
 import publicRequest from "../requestMethods";
 import moment from "moment";
-
+import { taetigkeiting } from "../assets/taetigkeiten";
 const TableSchichten = (props) => {
   const {user} = useContext(AuthContext);
 
@@ -15,7 +15,7 @@ const TableSchichten = (props) => {
   let  vma=0;
   let  mt= 0;
   let  km=0;
-
+  
   const config = {
     headers: { Authorization: `Bearer ${user.jwt}` },
   };
@@ -31,7 +31,7 @@ const TableSchichten = (props) => {
 
 const EinzelSchicht = (props) => (
 
-  <tr className="">
+  <tr className={props.stripeRow}>
     <td className="">{props.einsatzort} </td>
     <td scope="row" >{props.Projektnr} </td>
     <td className="">{props.auftragnr} </td>
@@ -128,7 +128,7 @@ const EinzelSchicht = (props) => (
           </thead>
           <tbody>
             {schichten &&
-              schichten.map((s) => {
+              schichten.map((s, index) => {
                 az += parseFloat(s.arbeitszeit);
                 na += parseFloat(s.nachtzuschlag);
                 so += parseFloat(s.sonntagzuschlag);
@@ -136,9 +136,11 @@ const EinzelSchicht = (props) => (
                 vma += parseFloat(s.vma);
                 mt += parseFloat(s.materialtransport);
                 km += parseFloat(s.gesamtKm);
-
+                let rowBackground;
+              (index % 2)  ? rowBackground ="backgroundDark" : rowBackground="backgroundLight"
                 return (
                   <EinzelSchicht
+                    stripeRow={rowBackground}
                     key={s.id}
                     einsatzort={s.einsatzort}
                     Projektnr={s.projektnr}
@@ -156,57 +158,58 @@ const EinzelSchicht = (props) => (
                     pkw_km={s.pkw_km}
                     baustellenkm={s.baustellenkm}
                     materialtransport={s.materialtransport}
-                    qualifikation={s.qualifikation}
+                    qualifikation={taetigkeiting[s.qualifikation]}
                     stdzettel={s.stdzettel}
                     freigabe={s.freigabe}
                     id={s.id}
                   />
-                );
+                )
+                ;
               })}
           </tbody>
         </table>
       </div>
 
-      <div class="container mt-4 p-4 ml-2 summenContainer flex-wrap">
-        <div class="row ">
-          <div class="col-12 col-md-6 ">
+      <div className="container mt-4 p-4 ml-2 summenContainer flex-wrap">
+        <div className="row ">
+          <div className="col-12 col-md-12 ">
             <h4
-              class="mb-4  minHeight60"
+              className="mb-4  minHeight60"
               style={{ borderBottom: "solid 1px #27348B" }}
             >
               Monatssummen:{" "}
             </h4>
-            <div class="d-flex flex-row justify-content-between w-100 mb-2">
-              <div class="col-8 bld noScroll minHeight20">Arbeitszeit</div>
-              <div class="col-4 text-right minHeight20">{az} Std.</div>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2">
+              <div className="col-8 bld noScroll minHeight20">Arbeitszeit</div>
+              <div className="col-4 text-right minHeight20">{az} Std.</div>
             </div>
-            <div class="d-flex flex-row justify-content-between w-100 mb-2">
-              <div class="col-8 bld noScroll minHeight20">Nachtstunden</div>
-              <div class="col-4 text-right minHeight20">{na} Std.</div>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2">
+              <div className="col-8 bld noScroll minHeight20">Nachtstunden</div>
+              <div className="col-4 text-right minHeight20">{na} Std.</div>
             </div>
-            <div class="d-flex flex-row justify-content-between w-100 mb-2">
-              <div class="col-8 bld noScroll minHeight20">Sonntagstunden</div>
-              <div class="col-4 text-right minHeight20">{so} Std.</div>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2">
+              <div className="col-8 bld noScroll minHeight20">Sonntagstunden</div>
+              <div className="col-4 text-right minHeight20">{so} Std.</div>
             </div>
-            <div class="d-flex flex-row justify-content-between w-100 mb-2">
-              <div class="col-8 bld noScroll minHeight20">Feiertagstunden</div>
-              <div class="col-4 text-right minHeight20">{ft} Std.</div>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2">
+              <div className="col-8 bld noScroll minHeight20">Feiertagstunden</div>
+              <div className="col-4 text-right minHeight20">{ft} Std.</div>
             </div>
-            <div class="d-flex flex-row justify-content-between w-100 mb-2">
-              <div class="col-8 bld noScroll minHeight20">Verpflegunsmehraufwand</div>
-              <div class="col-4 text-right minHeight20">{vma} €</div>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2 pt-2" style={{borderTop: "solid 1px #27348B"}}>
+              <div className="col-8 bld noScroll minHeight20">Verpflegunsmehraufwand</div>
+              <div className="col-4 text-right minHeight20">{vma} €</div>
             </div>
-            <div class="d-flex flex-row justify-content-between w-100 mb-2">
-              <div class="col-8 bld noScroll minHeight20">Materialtransport</div>
-              <div class="col-4 text-right minHeight20">{mt} €</div>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2">
+              <div className="col-8 bld noScroll minHeight20">Materialtransport</div>
+              <div className="col-4 text-right minHeight20">{mt} €</div>
             </div>
-            <div class="d-flex flex-row justify-content-between w-100 mb-2">
-              <div class="col-8 bld noScroll minHeight20">Km Geld</div>
-              <div class="col-4 text-right minHeight20">{km * 0.30} €</div>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2">
+              <div className="col-8 bld noScroll minHeight20">Km Geld <span className="smallText">(nur freigegebene Schichten)</span></div>
+              <div className="col-4 text-right minHeight20">{km * 0.30} €</div>
             </div>
-            <div class="d-flex flex-row justify-content-between w-100 mb-2">
-              <div class="col-8 bld noScroll minHeight20">Gesamtnettobeträge</div>
-              <div class="col-4 text-right minHeight20">{(km * 0.30) + mt + vma} €</div>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2  pt-2" style={{borderTop: "solid 1px #27348B"}}>
+              <div className="col-8 bld noScroll minHeight20">Gesamtnettobeträge</div>
+              <div className="col-4 text-right minHeight20 bld">{(km * 0.30) + mt + vma} €</div>
             </div>
           </div>
         
