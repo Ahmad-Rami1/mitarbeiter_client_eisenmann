@@ -170,7 +170,7 @@ const EinzelSchicht = (props) => (
         </table>
       </div>
 
-      <div className="container mt-4 p-4 ml-2 summenContainer flex-wrap">
+      <div  className="container mt-4 p-4 ml-2 summenContainer flex-wrap">
         <div className="row ">
           <div className="col-12 col-md-12 ">
             <h4
@@ -181,19 +181,19 @@ const EinzelSchicht = (props) => (
             </h4>
             <div className="d-flex flex-row justify-content-between w-100 mb-2">
               <div className="col-8 bld noScroll minHeight20">Arbeitszeit</div>
-              <div className="col-4 text-right minHeight20">{az} Std.</div>
+              <div className="col-4 text-right minHeight20">{parseFloat(az).toFixed(2)} Std.</div>
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2">
               <div className="col-8 bld noScroll minHeight20">Nachtstunden</div>
-              <div className="col-4 text-right minHeight20">{na} Std.</div>
+              <div className="col-4 text-right minHeight20">{parseFloat(na).toFixed(2)} Std.</div>
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2">
               <div className="col-8 bld noScroll minHeight20">Sonntagstunden</div>
-              <div className="col-4 text-right minHeight20">{so} Std.</div>
+              <div className="col-4 text-right minHeight20">{parseFloat(so).toFixed(2)} Std.</div>
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2">
               <div className="col-8 bld noScroll minHeight20">Feiertagstunden</div>
-              <div className="col-4 text-right minHeight20">{ft} Std.</div>
+              <div className="col-4 text-right minHeight20">{parseFloat(ft).toFixed(2)} Std.</div>
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2 pt-2" style={{borderTop: "solid 1px #27348B"}}>
               <div className="col-8 bld noScroll minHeight20">Verpflegunsmehraufwand</div>
@@ -205,16 +205,17 @@ const EinzelSchicht = (props) => (
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2">
               <div className="col-8 bld noScroll minHeight20">Km Geld <span className="smallText">(nur freigegebene Schichten)</span></div>
-              <div className="col-4 text-right minHeight20">{km * 0.30} €</div>
+              <div className="col-4 text-right minHeight20">{parseFloat(km * 0.30).toFixed(2)} €</div>
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2  pt-2" style={{borderTop: "solid 1px #27348B"}}>
               <div className="col-8 bld noScroll minHeight20">Gesamtnettobeträge</div>
-              <div className="col-4 text-right minHeight20 bld">{(km * 0.30) + mt + vma} €</div>
+              <div className="col-4 text-right minHeight20 bld">{parseFloat((km * 0.30) + mt + vma).toFixed(2)} €</div>
             </div>
           </div>
         
       
         </div>
+        
       </div>
     </>
   );
