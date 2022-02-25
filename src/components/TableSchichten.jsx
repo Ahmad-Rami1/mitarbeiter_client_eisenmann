@@ -170,12 +170,13 @@ const EinzelSchicht = (props) => (
         </table>
       </div>
 
-      <div  className="container mt-4 p-4 ml-2 summenContainer flex-wrap">
-        <div className="row ">
-          <div className="col-12 col-md-12 ">
+      <div  className="container mt-4 ml-2 summenContainer">
+        <div className="row" >
+          <div className="col-12 col-md-12 p-0">
             <h4
+            style={{borderRadius: 5}}
               className="mb-4  minHeight60"
-              style={{ borderBottom: "solid 1px #27348B" }}
+         
             >
               Monatssummen:{" "}
             </h4>
@@ -195,7 +196,7 @@ const EinzelSchicht = (props) => (
               <div className="col-8 bld noScroll minHeight20">Feiertagstunden</div>
               <div className="col-4 text-right minHeight20">{parseFloat(ft).toFixed(2)} Std.</div>
             </div>
-            <div className="d-flex flex-row justify-content-between w-100 mb-2 pt-2" style={{borderTop: "solid 1px #27348B"}}>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2 pt-2" style={{borderTop: "solid 1px #ffffff"}}>
               <div className="col-8 bld noScroll minHeight20">Verpflegunsmehraufwand</div>
               <div className="col-4 text-right minHeight20">{vma} €</div>
             </div>
@@ -207,7 +208,7 @@ const EinzelSchicht = (props) => (
               <div className="col-8 bld noScroll minHeight20">Km Geld <span className="smallText">(nur freigegebene Schichten)</span></div>
               <div className="col-4 text-right minHeight20">{parseFloat(km * 0.30).toFixed(2)} €</div>
             </div>
-            <div className="d-flex flex-row justify-content-between w-100 mb-2  pt-2" style={{borderTop: "solid 1px #27348B"}}>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2  pt-2" style={{borderTop: "solid 1px #ffffff"}}>
               <div className="col-8 bld noScroll minHeight20">Gesamtnettobeträge</div>
               <div className="col-4 text-right minHeight20 bld">{parseFloat((km * 0.30) + mt + vma).toFixed(2)} €</div>
             </div>
