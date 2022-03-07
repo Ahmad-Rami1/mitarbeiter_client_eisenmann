@@ -440,9 +440,10 @@ select.dispoSelect option {
 
 .tbl th {
   color: white;
-  background-color: #0056a4;
+  background: #0056a4;
   font-weight: 700;
-  border-color: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgb(187, 187, 187);
+  
   text-align: center;
  
   /* border: solid 1px #123953; */
@@ -1574,7 +1575,7 @@ body > div > div > div > div > form {
   }
   th,
   td {
-    padding: 2px !important;
+    padding: 7px !important;
   }
 
   .hide1 {

@@ -32,26 +32,26 @@ const TableSchichten = (props) => {
 const EinzelSchicht = (props) => (
 
   <tr className={props.stripeRow}>
-    <td className="">{props.einsatzort} </td>
-    <td scope="row" >{props.Projektnr} </td>
-    <td className="">{props.auftragnr} </td>
-    <td className="">{props.date.split("-").reverse().join(".")} </td>
-    <td className="">{props.azbeginn} </td>
-    <td className="">{props.azende} </td>
-    <td className="">{props.pause} </td>
-    <td className="">{props.arbeitszeit} </td>
-    <td className="">{props.nachtzuschlag} </td>
-    <td className="">{props.sonntagzuschlag} </td>
-    <td className="">{props.feiertagzuschlag} </td>
-    <td className="">{props.vma} </td>
-    <td className="">{props.bereitschaft} </td>
-    <td className="">{props.pkw_km} </td>
-    <td className="">{props.baustellenkm} </td>
-    <td className="">{props.materialtransport} </td>
-    <td className="">{props.qualifikation} </td>
-    <td className="">{props.stdzettel} </td>
-    <td className="">{props.freigabe} </td>
-    <td className="">{props.id} </td>
+    <td className="noScroll">{props.einsatzort} </td>
+    <td className="noScroll">{props.Projektnr} </td>
+    <td className="noScroll">{props.auftragnr} </td>
+    <td className="noScroll">{props.date.split("-").reverse().join(".")} </td>
+    <td className="noScroll">{props.azbeginn} </td>
+    <td className="noScroll">{props.azende} </td>
+    <td className="noScroll">{props.pause} </td>
+    <td className="noScroll">{props.arbeitszeit} </td>
+    <td className="noScroll">{props.nachtzuschlag} </td>
+    <td className="noScroll">{props.sonntagzuschlag} </td>
+    <td className="noScroll">{props.feiertagzuschlag} </td>
+    <td className="noScroll">{props.vma} </td>
+    <td className="noScroll">{props.bereitschaft} </td>
+    <td className="noScroll">{props.pkw_km} </td>
+    <td className="noScroll">{props.baustellenkm} </td>
+    <td className="noScroll">{props.materialtransport} </td>
+    <td className="noScroll">{props.qualifikation} </td>
+    <td className="noScroll">{props.stdzettel} </td>
+    <td className="noScroll">{props.freigabe} </td>
+    <td className="noScroll">{props.id} </td>
 </tr>
 
 )
@@ -69,66 +69,69 @@ const EinzelSchicht = (props) => (
               <th scope="col " className=" ">
                 Auftragnr.
               </th>
-              <th className="" scope="col">
+              <th className="noScroll" scope="col">
                 Datum
               </th>
-              <th className="" scope="col">
+              <th className="noScroll" scope="col">
                 Dienstbeginn
               </th>
-              <th className="" scope="col">
+              <th className="noScroll" scope="col">
                 Dienstende
               </th>
-              <th className="" scope="col">
+              <th className="noScroll" scope="col">
                 Pause <br />
                 Min.
               </th>
-              <th className="" scope="col">
+              <th className="noScroll" scope="col">
                 Arbeitszeit <br />
                 Std.
               </th>
-              <th className=" " scope="col">
+              <th className=" noScroll" scope="col">
                 Nacht <br />
                 Std.
               </th>
-              <th className=" " scope="col">
+              <th className=" noScroll" scope="col">
                 Sonntag <br />
                 Std.
               </th>
-              <th scope="col " className=" ">
+              <th scope="col " className="noScroll ">
                 Feiertag <br />
                 Std.
               </th>
-              <th scope="col " className=" ">
+              <th scope="col " className="noScroll ">
                 VMA{" "}
               </th>
-              <th className=" " scope="col">
+              <th className="noScroll " scope="col">
                 Bereitschaft <br />
                 Std.
               </th>
-              <th className=" " scope="col">
+              <th className="noScroll " scope="col">
                 Pkw. km
               </th>
-              <th className=" " scope="col">
+              <th className="noScroll " scope="col">
                 Bau. km
               </th>
-              <th className=" " scope="col">
+              <th className="noScroll " scope="col">
                 Ma. Transport
               </th>
-              <th className="" scope="col">
+              <th className="noScroll" scope="col">
                 Qualifikation
               </th>
-              <th className="" scope="col">
+              <th className="noScroll" scope="col">
                 Stdzettel
               </th>
-              <th className="" scope="col">
+              <th className="noScroll" scope="col">
                 Status
               </th>
-              <th scope="col">Schicht Id</th>
+              <th className="noScroll" scope="col">Schicht Id</th>
             </tr>
           </thead>
           <tbody>
             {schichten &&
               schichten.map((s, index) => {
+                const dateNow = moment().unix();
+                const schichtStart = moment(s.date + " " + s.azbeginn).unix();
+                if (dateNow > schichtStart) {
                 az += parseFloat(s.arbeitszeit);
                 na += parseFloat(s.nachtzuschlag);
                 so += parseFloat(s.sonntagzuschlag);
@@ -165,7 +168,7 @@ const EinzelSchicht = (props) => (
                   />
                 )
                 ;
-              })}
+              }})}
           </tbody>
         </table>
       </div>

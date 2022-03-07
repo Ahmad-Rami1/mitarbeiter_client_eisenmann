@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import publicRequest from "../requestMethods";
+import { replaceUmlaute } from "../assets/replaceUmlaut";
+
 
 const SchichtEintragen = () => {
   const { user } = useContext(AuthContext);
@@ -66,7 +68,7 @@ const SchichtEintragen = () => {
       bereitStd: schichtData.bereitStd === "" ? "0" : schichtData.bereitStd,
       bereitMin: schichtData.bereitMin === "" ? "0" : schichtData.bereitMin,
       stdzettel: schichtData.stdzettel,
-      einsatzort: schichtData.einsatzort,
+      einsatzort: replaceUmlaute(schichtData.einsatzort),
       bundesland: user.bundesland,
       mitarbeiterId: user.id,
       vornameName: user.vorname + " " + user.nachname,
@@ -192,7 +194,7 @@ const SchichtEintragen = () => {
                     <option value="302">Schneeräumkraft</option>
                     <option value="350">Monteur ATWS</option>
                     <option value="370">Mehrfachfunktion</option>
-                    <option value="500">Melder</option>
+                  
                     <option value="600">ATWS Bediener</option>
                     <option value="601">
                       Projektant/Projektprüfer/Abnahme ATWS
