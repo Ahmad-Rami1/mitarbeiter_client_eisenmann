@@ -1,18 +1,23 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import publicRequest from "../requestMethods";
 import { replaceUmlaute } from "../assets/replaceUmlaut";
-
+import Compressor from "compressorjs";
+import moment from "moment";
 
 const SchichtEintragen = () => {
   const { user } = useContext(AuthContext);
-
+  const inputEl = useRef(null);
   const config = {
     headers: { Authorization: `Bearer ${user.jwt}` },
   };
 
   const [vma28, setvma28] = useState(false);
   const [materialTransport, setMaterialTransport] = useState("0");
+  const [image, setImage] = useState({
+    name: "",
+    file: "",
+  });
   const [schichtData, setSchichtData] = useState({
     projektnr: "",
     auftragnr: "",
@@ -37,17 +42,37 @@ const SchichtEintragen = () => {
     const newSchichtData = { ...schichtData };
     newSchichtData[fieldName] = fieldValue;
     setSchichtData(newSchichtData);
-
   };
 
   const materialTransportHandler = (e) => {
     setMaterialTransport(e.target.value);
-    console.log(materialTransport);
+  };
+
+  const handleChangeImage = (e) => {
+    const bild = e.target.files[0];
+    new Compressor(bild, {
+      quality: 0.8, // 0.6 can also be used, but its not recommended to go below.
+      success: (compressedResult) => {
+        // compressedResult has the compressed file.
+        // Use the compressed file to upload the images to your server.
+        setImage({
+          name: URL.createObjectURL(e.target.files[0]),
+          file: compressedResult,
+        });
+      },
+      error: (err) => {
+        setImage({
+          name: "",
+          file: "",
+        });
+      }
+    })
+
+    ;
   };
 
   const handleVmaChange = () => {
     setvma28(!vma28);
-    console.log(vma28);
   };
 
   const submitHandler = (e) => {
@@ -74,6 +99,7 @@ const SchichtEintragen = () => {
       vornameName: user.vorname + " " + user.nachname,
       vmaJson: vma28,
     };
+
     try {
       publicRequest
         .post("schicht/insert_schicht.php", JSON.stringify(data), config)
@@ -100,12 +126,24 @@ const SchichtEintragen = () => {
             });
             setvma28(false);
             setMaterialTransport("0");
+            if (image.file !== "") {
+              const imageFormData = new FormData();
+              imageFormData.append("image", image.file);
+              imageFormData.append(
+                "name",
+                schichtData.stdzettel + "_" + user.id
+              );
+
+              publicRequest
+                .post("server/server.php", imageFormData, config)
+                .then((res) => (inputEl.current.value = "")).then(() => setImage({file: "", name:""}));
+            }
           }
         })
         .catch((err) => {
           if (err.response) {
             alert(
-              "Schicht nicht eingetragen! Bitte prüfen wie die zeitliche Reihenfolge der Uhrzeiten."
+              "Schicht nicht eingetragen! Bitte prüfen Sie die zeitliche Reihenfolge der Uhrzeiten."
             );
           }
         });
@@ -194,7 +232,7 @@ const SchichtEintragen = () => {
                     <option value="302">Schneeräumkraft</option>
                     <option value="350">Monteur ATWS</option>
                     <option value="370">Mehrfachfunktion</option>
-                  
+
                     <option value="600">ATWS Bediener</option>
                     <option value="601">
                       Projektant/Projektprüfer/Abnahme ATWS
@@ -477,13 +515,30 @@ const SchichtEintragen = () => {
                   required
                 />
               </div>
-              <div className="row g-2 w-100 d-flex justify-content-end border-top1 my-3">
-                <div className="col-12 textRight d-flex align-items-center justify-content-end" />
-                <input type="file" name="anyfile" id="anyfile" />
+              <div className="row g-2 w-100 d-flex justify-content-center border-top1 mt-3">
+                <div className="col-md-5 col-12 textRight d-flex align-items-center justify-content-end">
+                  <input
+                    type="file"
+                    accept="image/*" 
+                    name="image"
+                    id="image"
+                    ref={inputEl}
+                    onChange={handleChangeImage}
+                  />
+                </div>
+                <div className="col-md-2 col-12 mt-2 d-flex align-items-center justify-content-center">
+                  {(image.name !== "") && (
+                    <img
+                      style={{ maxHeight: 100 }}
+                      src={image.name}
+                      alt="File preview"
+                    />
+                  )}
+                </div>
               </div>
             </div>
 
-            <div className="row g-2 border-top1 my-3 d d-flex justify-content-center">
+            <div className="row g-2 border-top1 mb-2 d d-flex justify-content-center">
               <div className="col-12 col-sm-6 col-md-6  ">
                 <button
                   type="submit"
