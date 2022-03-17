@@ -95,6 +95,7 @@ const SchichtEintragen = () => {
       stdzettel: schichtData.stdzettel,
       einsatzort: replaceUmlaute(schichtData.einsatzort),
       bundesland: user.bundesland,
+      niederlassung: user.niederlassung,
       mitarbeiterId: user.id,
       vornameName: user.vorname + " " + user.nachname,
       vmaJson: vma28,
