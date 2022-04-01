@@ -5,7 +5,9 @@ import Login from './pages/Login';
 import Uebersicht from './pages/Uebersicht';
 import { AuthContext } from "./context/AuthContext";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { logout, loginCall } from "./apiCalls";
+import { logout } from "./apiCalls";
+
+import Eintragen from "./pages/Eintragen";
 function App() {
 
   const { user, dispatch} = useContext(AuthContext);
@@ -31,6 +33,7 @@ function App() {
     <>
 <Routes>
   <Route path="/" element={<AuthRoute><Home /></AuthRoute>} />
+  <Route path="/schichtEintragen" element={<AuthRoute><Eintragen /></AuthRoute>} />
   <Route path="/login" element={<Login />} />
   <Route path="/uebersicht" element={<AuthRoute><Uebersicht /></AuthRoute>} />
 </Routes>

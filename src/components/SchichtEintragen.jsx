@@ -3,9 +3,12 @@ import { AuthContext } from "../context/AuthContext";
 import publicRequest from "../requestMethods";
 import { replaceUmlaute } from "../assets/replaceUmlaut";
 import Compressor from "compressorjs";
-import moment from "moment";
+import {MdOutlineArrowBack }from 'react-icons/md'
+import { useNavigate } from "react-router-dom";
 
-const SchichtEintragen = () => {
+
+const SchichtEintragen = (props) => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const inputEl = useRef(null);
   const config = {
@@ -13,27 +16,28 @@ const SchichtEintragen = () => {
   };
 
   const [vma28, setvma28] = useState(false);
+  const [ausfallSchicht, setAusfallSchicht] = useState(false);
   const [materialTransport, setMaterialTransport] = useState("0");
   const [image, setImage] = useState({
     name: "",
     file: "",
   });
   const [schichtData, setSchichtData] = useState({
-    projektnr: "",
-    auftragnr: "",
-    datumAbfahrt: "",
-    dienstbeginn: "",
-    dienstende: "",
+    projektnr: props.state.projektnr,
+    auftragnr: props.state.auftragnr,
+    datumAbfahrt: props.state.datum,
+    dienstbeginn: props.state.vondat,
+    dienstende: props.state.bisdat,
     Pause: "30",
     bauKm: "",
     pkwKm: "",
     abfahrtTime: "",
     ankunftTime: "",
-    qual: "100",
+    qual: props.state.qualnr,
     bereitStd: "0",
     bereitMin: "0",
     stdzettel: "",
-    einsatzort: "",
+    einsatzort: props.state.bauvor,
   });
 
   const changeHandler = (e) => {
@@ -65,14 +69,15 @@ const SchichtEintragen = () => {
           name: "",
           file: "",
         });
-      }
-    })
-
-    ;
+      },
+    });
   };
 
   const handleVmaChange = () => {
     setvma28(!vma28);
+  };
+  const handleAusfallChange = () => {
+    setAusfallSchicht(!ausfallSchicht);
   };
 
   const submitHandler = (e) => {
@@ -99,6 +104,8 @@ const SchichtEintragen = () => {
       mitarbeiterId: user.id,
       vornameName: user.vorname + " " + user.nachname,
       vmaJson: vma28,
+      ausfallJson: ausfallSchicht,
+      posnr: props.state.posnr
     };
 
     try {
@@ -137,10 +144,11 @@ const SchichtEintragen = () => {
 
               publicRequest
                 .post("server/server.php", imageFormData, config)
-                .then((res) => (inputEl.current.value = "")).then(() => setImage({file: "", name:""}));
+                .then((res) => (inputEl.current.value = ""))
+                .then(() => setImage({ file: "", name: "" }));
             }
           }
-        })
+        }).then(() => navigate("/",  {state: null}))
         .catch((err) => {
           if (err.response) {
             alert(
@@ -154,120 +162,50 @@ const SchichtEintragen = () => {
     }
   };
 
-  //   useEffect(() => {
-  // const getUserData = async () => {
-  //  await setSchichtData({...schichtData, bundesland: user.bundesland,
-  //     mitarbeiterId: user.id,
-  //     vornameName : user.vorname + " " + user.nachname})
-  // }
-  // getUserData()
-  //   }, [user])
 
   return (
     <div className="d-flex justify-content-center">
       <div
         className="card border border-secondary pr-3 pl-3 pt-3 mb-1 mt-3 crdd"
         style={{ width: "45rem" }}
-      >
+        >
+        <button onClick={() => navigate("/",  {state: null})} className="backBtn"><MdOutlineArrowBack /> zurück zu Übersicht</button>
         <div className="card-body pt-1 pb-1" id="nopaddingcard">
+          
           <form
             onSubmit={(e) => submitHandler(e)}
             className="frm1"
             encType="multipart/form-data"
           >
-            <div className="row g-2 d-flex align-items-center">
+            <div className="row g-2 my-2 d-flex align-items-center">
+              
               <div className="col-6 col-sm-3 col-md-3 bold bluu vertical d-flex align-items-center  mb-2">
                 Projektnr.:
               </div>
-              <div className="col-6 col-sm-3 col-md-3 textRight mb-2">
-                <input
-                  type="number"
-                  size="8"
-                  className="inputt"
-                  onChange={(e) => changeHandler(e)}
-                  name="projektnr"
-                  placeholder="Projektnr."
-                  value={schichtData.projektnr}
-                  required
-                />
+              <div className="col-6 col-sm-3 col-md-3 textRight mb-2 noScroll colorBlue">
+                {schichtData.projektnr}
               </div>
-              <div className="col-6 col-sm-3 col-md-3 bold bluu vertical d-flex align-items-center  mb-2">
-                Auftragsnr.:{}
+              <div className="col-6 col-sm-3 col-md-3 bold bluu vertical d-flex align-items-center colorBlue  mb-2">
+                Auftragsnr.:
               </div>
-              <div className="col-6 col-sm-3 col-md-3 textRight  mb-2">
-                <input
-                  type="number"
-                  size="8"
-                  onChange={(e) => changeHandler(e)}
-                  className="inputt"
-                  placeholder="Auftragnr."
-                  name="auftragnr"
-                  value={schichtData.auftragnr}
-                  required
-                />
+              <div className="col-6 col-sm-3 col-md-3 textRight  mb-2 colorBlue noScroll">
+                {schichtData.auftragnr}
               </div>
             </div>
-            <div className="row g-2 border-top1  ">
-              <div className="col-12 col-sm-3 col-md-3 mb-2 bold bluu vertical d-flex align-items-center">
+            <div className="row g-2  my-2 border-top1  ">
+              <div className="col-6 col-sm-3 col-md-2 mb-2 bold bluu vertical d-flex align-items-center noScroll">
                 Tätigkeit:
               </div>
-              <div className="col-12 col-sm-9 col-md-6 textRight">
-                <div className="control-group">
-                  <select
-                    id="auto_position"
-                    className="auto_position mb-2 selectIndexPage"
-                    name="qual"
-                    onChange={(e) => changeHandler(e)}
-                    value={schichtData.qual}
-                  >
-                    <option value="100">Sicherungsposten</option>
-                    <option value="101">Ausbildung</option>
-                    <option value="102">Arbeiter</option>
-                    <option value="106">Helfer im Bahnbetrieb</option>
-                    <option value="107">SSB-SiPo</option>
-                    <option value="108">Handferneinschalter - HFE</option>
-                    <option value="300">Sicherungsaufsichtskraft</option>
-                    <option value="301">
-                      Leitende Sicherungsaufsichtskraft
-                    </option>
-                    <option value="302">Schneeräumkraft</option>
-                    <option value="350">Monteur ATWS</option>
-                    <option value="370">Mehrfachfunktion</option>
-
-                    <option value="600">ATWS Bediener</option>
-                    <option value="601">
-                      Projektant/Projektprüfer/Abnahme ATWS
-                    </option>
-                    <option value="610">AKA Bediener</option>
-                    <option value="620">ATWS Bediener, 2 Anlagen</option>
-                    <option value="650">Monteur Feste Absperrung</option>
-                    <option value="652">Monteur Lf-Signale/Gleismagnete</option>
-                    <option value="651">Montageleiter</option>
-                    <option value="800">Bahnübergangsposten</option>
-                    <option value="801">Hilfsübergangsposten</option>
-                    <option value="900">Schaltantragsteller</option>
-                    <option value="1000">Bahnerder</option>
-                    <option value="1200">Rangierbegleiter</option>
-                    <option value="1250">Wagenmeister</option>
-                  </select>
+              <div className="col-6 col-sm-9 col-md-2 textRight">
+                <div className="control-group noScroll colorBlue">
+                  {props.state.qualif}
                 </div>
               </div>
-            </div>
-            <div className="row g-2 border-top1 marginTop ">
-              <div className="col-12 col-sm-3 col-md-3 mb-2 bold bluu vertical d-flex align-items-center">
+              <div className="col-6 col-sm-3 col-md-2 mb-2 bold bluu vertical d-flex align-items-center">
                 Einsatzort:
               </div>
-              <div className="col-12 col-sm-9 col-md-9 textRight">
-                <input
-                  type="text"
-                  size="7"
-                  className="einsatzortInput"
-                  value={schichtData.einsatzort}
-                  name="einsatzort"
-                  onChange={(e) => changeHandler(e)}
-                  placeholder="Einsatzort"
-                  required
-                />
+              <div className="col-6 col-sm-9 col-md-5 textRight noScroll colorBlue">
+                {props.state.bauvor}
               </div>
             </div>
 
@@ -361,10 +299,10 @@ const SchichtEintragen = () => {
             </div>
 
             <div className="row g-2 border-top1 marto mt-2">
-              <div className="col-6 col-sm-3 col-md-3  bold pr-0 bluu marto vertical d-flex align-items-center ">
+              <div className="col-5 col-sm-3 col-md-3  bold pr-0 bluu marto vertical d-flex align-items-center ">
                 Bezahlte Bereitschaft:
               </div>
-              <div className="col-6 col-sm-3 col-md-3 pl-0 textRight  justifyEnd d-flex ">
+              <div className="col-7 col-sm-3 col-md-3 pl-0 textRight  justifyEnd d-flex ">
                 <div className="backwhite textRight">
                   <input
                     type="number"
@@ -454,11 +392,11 @@ const SchichtEintragen = () => {
                 </div>
               </div>
 
-              <div className="col-8 col-sm-3 col-md-3 bold  bluu marto vertical  d-flex align-items-center">
+              <div className="col-7 col-sm-3 col-md-3 bold  bluu marto vertical  d-flex align-items-center">
                 Baustellenkm. (Km):
               </div>
 
-              <div className="col-4 col-sm-3 col-md-3 textRight">
+              <div className="col-5 col-sm-3 col-md-3 textRight">
                 <input
                   type="number"
                   className="inputtkm text-right"
@@ -501,10 +439,10 @@ const SchichtEintragen = () => {
                   (Bei Ankreuzung wird 28€ VMA angerechnet)
                 </label>
               </div>
-              <div className="col-8 col-sm-3 col-md-3 bold  bluu marto vertical  d-flex align-items-center ">
+              <div className="col-7 col-sm-3 col-md-3 bold  bluu marto vertical  d-flex align-items-center ">
                 Stdzettel Nr.
               </div>
-              <div className="col-4 col-sm-3  col-md-3 inputtkm1 textRight d-flex align-items-center justifyEnd">
+              <div className="col-5 col-sm-3  col-md-3 inputtkm1 textRight d-flex align-items-center justifyEnd">
                 <input
                   className="inputtkm"
                   name="stdzettel"
@@ -516,11 +454,36 @@ const SchichtEintragen = () => {
                   required
                 />
               </div>
-              <div className="row g-2 w-100 d-flex justify-content-center border-top1 mt-3">
-                <div className="col-md-5 col-12 textRight d-flex align-items-center justify-content-end">
+              </div>
+              <div className="row g-2 border-top1 my-3">
+                <div className="col-6 col-sm-3 col-md-3  bold pr-0 bluu marto vertical d-flex align-items-center  ">
+                  Ausfallschicht?
+                </div>
+                <div className="col-2 col-sm-3 col-md-3 inputtkm1  pl-0 d-flex align-items-center justifyEnd noScroll">
+                  <div
+                    className="double"
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      zIndex: 99,
+                      minWidth: 15,
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={ausfallSchicht}
+                      onChange={handleAusfallChange}
+                      name="ausfalla"
+                      style={{ marginTop: -11, zIndex: 99 }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="row g-2 border-top1 my-3">
+                <div className="col-md-6 col-12  textRight d-flex align-items-center justify-content-end">
                   <input
                     type="file"
-                    accept="image/*" 
+                    accept="image/*"
                     name="image"
                     id="image"
                     ref={inputEl}
@@ -528,7 +491,7 @@ const SchichtEintragen = () => {
                   />
                 </div>
                 <div className="col-md-2 col-12 mt-2 d-flex align-items-center justify-content-center">
-                  {(image.name !== "") && (
+                  {image.name !== "" && (
                     <img
                       style={{ maxHeight: 100 }}
                       src={image.name}
@@ -537,7 +500,7 @@ const SchichtEintragen = () => {
                   )}
                 </div>
               </div>
-            </div>
+          
 
             <div className="row g-2 border-top1 mb-2 d d-flex justify-content-center">
               <div className="col-12 col-sm-6 col-md-6  ">

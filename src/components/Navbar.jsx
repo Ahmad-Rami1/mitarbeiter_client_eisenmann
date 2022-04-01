@@ -31,7 +31,7 @@ const Navbar = (props) => {
             className={props.page === "home" ? "nav-item active" : "nav-item"}
           >
             <Link className="nav-link" to="/">
-              Schicht eintragen
+              Aktuelle Schichten
             </Link>
           </li>
 
