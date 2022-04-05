@@ -723,6 +723,10 @@ input[type="number"] {
     margin-bottom: 15px;
   }
 
+  .backBtn{
+    width: 100%!important;
+  }
+
 }
 
 .inpuPause,
@@ -1768,10 +1772,7 @@ body > div > div > div > div > form {
       width: calc(100% - 10px);
     }
 
-    .backBtn {
-      border-top-right-radius: 5px;
-      width: calc(100% - 10px);
-    }
+   
 
     .leftbutton {
       font-size: 10px;
@@ -1944,7 +1945,8 @@ body > div > div > div > div > form {
 }
 
 .backBtn {
-  max-width: 300px!important;
+  width: 300px;
+  /* width: 12rem; */
   border-top-left-radius: 5px;
   padding: 15px;
   outline: none;

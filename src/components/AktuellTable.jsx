@@ -43,7 +43,7 @@ const Schicht = ({ schicht }) => {
           className="col-lg-6 col-12 p-2noScroll d-flex align-items-center noScroll h-100 "
          
         >
-          {moment(schicht.datum).format("dddd")}{" "}
+          <span className="mr-4 noScroll">  {moment(schicht.datum).format("dddd")}</span>
           {schicht.datum.split("-").reverse().join(".")}
         </div>
         <div
@@ -75,7 +75,7 @@ const Schicht = ({ schicht }) => {
           className="col-lg-2 col-12 p-2 noScroll d-flex justify-content-between align-items-stretch h-100 border-top border-secondary"
           style={{ minHeight: "30px" }}
         >
-          <span className="bld noScroll"> Qual.:</span>{" "}
+          <span className="bld noScroll"> Tätigkeit:</span>{" "}
           <span className=" noScroll">{schicht.qualif}</span>
         </div>
         <div
