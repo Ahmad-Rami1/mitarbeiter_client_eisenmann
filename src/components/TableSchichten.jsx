@@ -161,7 +161,7 @@ const EinzelSchicht = (props) => (
                     pkw_km={s.pkw_km}
                     baustellenkm={s.baustellenkm}
                     materialtransport={s.materialtransport}
-                    qualifikation={taetigkeiting[s.qualifikation]}
+                    qualifikation={s.qualGDI}
                     stdzettel={s.stdzettel}
                     freigabe={s.freigabe}
                     id={s.id}
