@@ -432,14 +432,7 @@ const SchichtEintragen = (props) => {
                     style={{ marginTop: -11, zIndex: 99 }}
                   />
                 </div>
-                <label
-                  id="nachtung"
-                  className=" p-1 noScroll"
-                  htmlFor="#nachtung"
-                  style={{ marginLeft: 20 }}
-                >
-                  (Bei Ankreuzung wird 28€ VMA angerechnet)
-                </label>
+               
               </div>
               <div className="col-7 col-sm-3 col-md-3 bold  bluu marto vertical  d-flex align-items-center ">
                 Stdzettel Nr.
