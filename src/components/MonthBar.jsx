@@ -3,22 +3,22 @@ import { AuthContext } from "../context/AuthContext";
 import moment from "moment";
 const MonthBar = (props) => {
 const {user} = useContext(AuthContext);
-  const [year, setYear] = useState((moment().year()).toString());
-  const [lastYear, setLastYear] = useState((moment().year() - 1).toString());
+  const year =(moment().year()).toString();
+  const lastYear =(moment().year() - 1).toString();
 
   return (
-    <div className="container-fluid px-0 frm">
+    <div className="container-fluid px-0 frmSearch">
       <div className="container">
         {/* <form action="uebersichtSchichten.php" method="POST" className="p-1 mb-0 "> */}
           <div className="row mt-2 ">
             <div className="col-12 col-sm-12 col-md-6 col-lg-2 d-flex align-items-center">
-              <div className="d-flex justify-content-center mt-1 bluu123 bld">
+              <div className="d-flex justify-content-center mt-1  bld noScroll">
                 {user && user.vorname + " " + user.nachname}
               </div>
             </div>
 
-            <div className="col-12 col-sm-12 col-md-6 col-lg-6 bluu zeitraum d-flex justify-content-between align-items-center mt-2 my-2 bluu zeitraum smallScreenText">
-              Zeitraum
+            <div className="col-12 col-sm-12 col-md-6 col-lg-6   d-flex justify-content-between align-items-center mt-2 my-2 bld smallScreenText">
+              Monat:
               <div className="control-group d-flex align-items-center mt-1">
                 <select
                   id="auto_position"

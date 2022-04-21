@@ -336,7 +336,7 @@ const SchichtEintragen = (props) => {
               </div>
 
               <div className="col-8 col-sm-3 col-md-3 bold  bluu marto vertical  d-flex align-items-center ">
-                Pkw km
+                Pkw. km.:
               </div>
 
               <div className="col-4 col-sm-3 col-md-3 inputtkm1 textRight d-flex align-items-center justifyEnd">
@@ -395,7 +395,7 @@ const SchichtEintragen = (props) => {
               </div>
 
               <div className="col-7 col-sm-3 col-md-3 bold  bluu marto vertical  d-flex align-items-center">
-                Baustellenkm. (Km):
+                Baustellenkm.:
               </div>
 
               <div className="col-5 col-sm-3 col-md-3 textRight">
@@ -411,10 +411,10 @@ const SchichtEintragen = (props) => {
               </div>
             </div>
             <div className="row g-2 border-top1 my-3">
-              <div className="col-6 col-sm-3 col-md-3  bold pr-0 bluu marto vertical d-flex align-items-center  ">
+              <div className="col-6 col-sm-3 col-md-3  bold pr-0 bluu marto vertical d-flex align-items-center   ">
                 Übernachtung?
               </div>
-              <div className="col-6 col-sm-3 col-md-3 inputtkm1  pl-0 d-flex align-items-center justifyEnd noScroll">
+              <div className="col-2 col-sm-3 col-md-3 inputtkm1  pl-0 d-flex align-items-center justifyEnd noScroll mt-1">
                 <div
                   className="double"
                   style={{
@@ -435,7 +435,7 @@ const SchichtEintragen = (props) => {
                
               </div>
               <div className="col-7 col-sm-3 col-md-3 bold  bluu marto vertical  d-flex align-items-center ">
-                Stdzettel Nr.
+                Stdzettelnr.:
               </div>
               <div className="col-5 col-sm-3  col-md-3 inputtkm1 textRight d-flex align-items-center justifyEnd">
                 <input
@@ -454,7 +454,7 @@ const SchichtEintragen = (props) => {
                 <div className="col-6 col-sm-3 col-md-3  bold pr-0 bluu marto vertical d-flex align-items-center  ">
                   Ausfallschicht?
                 </div>
-                <div className="col-2 col-sm-3 col-md-3 inputtkm1  pl-0 d-flex align-items-center justifyEnd noScroll">
+                <div className="col-2 col-sm-3 col-md-3 inputtkm1  pl-0 d-flex align-items-center justifyEnd noScroll mt-1">
                   <div
                     className="double"
                     style={{

@@ -4,6 +4,7 @@ import publicRequest from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/de";
+import LoadingComp from "./LoadingComp";
 moment.locale("de");
 
 const NoSchicht = () => (
@@ -137,6 +138,7 @@ const AktuellTable = (props) => {
 
   const [aktuelleSchichte, setAktuelleSchichten] = useState([]);
   const [eingetrageneSchichte, setEingetrageneSchichte] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getAktSchichten = async () => {
@@ -145,7 +147,7 @@ const AktuellTable = (props) => {
         config
       );
       await setAktuelleSchichten(res.data.data);
-      await console.log(res.data.data);
+      await setLoading(false);
     };
     getAktSchichten();
   }, []);
@@ -173,7 +175,13 @@ const AktuellTable = (props) => {
         aktuelleSchichte
           .filter((s) => !eingetrageneSchichte.includes(s.posnr.toString()))
           .map((s) => <Schicht schicht={s} />)
-      ) : (
+      ) : loading === true ? 
+      
+        <LoadingComp />
+
+   
+        
+      :(
         <NoSchicht />
       )}
     </div>

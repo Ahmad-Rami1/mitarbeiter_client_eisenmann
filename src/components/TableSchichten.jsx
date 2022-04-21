@@ -3,11 +3,12 @@ import { AuthContext } from "../context/AuthContext";
 import publicRequest from "../requestMethods";
 import moment from "moment";
 import { taetigkeiting } from "../assets/taetigkeiten";
+import LoadingComp from "./LoadingComp";
 const TableSchichten = (props) => {
   const {user} = useContext(AuthContext);
 
   const [schichten, setSchichten] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   let  az= 0;
   let  na=0;
   let  so=0;
@@ -24,7 +25,7 @@ const TableSchichten = (props) => {
     const getData = async() => {
       const res = await publicRequest.get(`schicht/get_schichten.php?month=${props.month}&year=${props.year}&mitarbeiterId=${user.id}`, config )
       setSchichten(res.data.data);
-     
+      await setLoading(false);
       }
     getData();
   }, [props.month, props.year])
@@ -56,8 +57,17 @@ const EinzelSchicht = (props) => (
 
 )
 
+const Loading =({children} ) => {
+  if(loading) {
+    return <LoadingComp /> 
+  }
+  else {
+    return children
+  }
+}
+
   return (
-    <>
+    <Loading>
       <div className="table-responsive">
         <table className="tbl w-100">
           <thead>
@@ -99,35 +109,38 @@ const EinzelSchicht = (props) => (
                 Std.
               </th>
               <th scope="col " className="noScroll ">
-                VMA{" "}
+                VMA<br />
+                €
               </th>
               <th className="noScroll " scope="col">
                 Bereitschaft <br />
                 Std.
               </th>
               <th className="noScroll " scope="col">
-                Pkw. km
+                Pkw. km.
               </th>
               <th className="noScroll " scope="col">
-                Bau. km
+                Bau. km.
               </th>
               <th className="noScroll " scope="col">
-                Ma. Transport
+                Ma. Transport<br />
+                €
               </th>
               <th className="noScroll" scope="col">
                 Qualifikation
               </th>
               <th className="noScroll" scope="col">
-                Stdzettel
+                Stdzettelnr.
               </th>
               <th className="noScroll" scope="col">
                 Status
               </th>
-              <th className="noScroll" scope="col">Schicht Id</th>
+              <th className="noScroll" scope="col">Schichtnr.</th>
             </tr>
           </thead>
           <tbody>
-            {schichten &&
+            {
+            schichten &&
               schichten.map((s, index) => {
                 const dateNow = moment().unix();
                 const schichtStart = moment(s.date + " " + s.azbeginn).unix();
@@ -184,7 +197,7 @@ const EinzelSchicht = (props) => (
               Monatssummen:{" "}
             </h4>
             <div className="d-flex flex-row justify-content-between w-100 mb-2">
-              <div className="col-8 bld noScroll minHeight20">Arbeitszeit</div>
+              <div className="col-8 bld noScroll minHeight20">Gesamtarbeitszeit</div>
               <div className="col-4 text-right minHeight20">{parseFloat(az).toFixed(2)} Std.</div>
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2">
@@ -207,9 +220,9 @@ const EinzelSchicht = (props) => (
               <div className="col-8 bld noScroll minHeight20">Materialtransport</div>
               <div className="col-4 text-right minHeight20">{mt} €</div>
             </div>
-            <div className="d-flex flex-row justify-content-between w-100 mb-2">
-              <div className="col-8 bld noScroll minHeight20">Km Geld <span className="smallText">(nur freigegebene Schichten)</span></div>
-              <div className="col-4 text-right minHeight20">{parseFloat(km * 0.30).toFixed(2)} €</div>
+            <div className="d-flex flex-row justify-content-between w-100 mb-2 noScroll">
+              <div className="col-8 bld noScroll minHeight20 noScroll">Km Geld <span className="smallText noScroll">(nur freigegebene Schichten)</span></div>
+              <div className="col-4 text-right minHeight20 noScroll"><span className="smallText mr-2 noScroll">{parseFloat(km).toFixed(2)} km</span> {parseFloat(km * 0.30).toFixed(2)} €</div>
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2  pt-2" style={{borderTop: "solid 1px #ffffff"}}>
               <div className="col-8 bld noScroll minHeight20">Gesamtnettobeträge</div>
@@ -221,7 +234,7 @@ const EinzelSchicht = (props) => (
         </div>
         
       </div>
-    </>
+    </Loading>
   );
 };
 

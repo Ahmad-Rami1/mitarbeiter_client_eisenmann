@@ -442,7 +442,7 @@ select.dispoSelect option {
   color: white;
   background: #0056a4;
   font-weight: 700;
-  border: 1px solid rgb(187, 187, 187);
+  /* border: 1px solid rgb(187, 187, 187); */
   
   text-align: center;
  
@@ -1151,6 +1151,21 @@ background: linear-gradient(135deg, #DDD9D9 0%, #AFAFAF 100%);
 
 .frm1 {
   margin-bottom: 0px;
+}
+
+
+.frmSearch {
+  /* height: 100px; */
+  color: white !important;
+  /* background: rgb(0,86,164);
+background: linear-gradient(180deg, rgba(0,86,164,1) 19%, rgba(39,52,139,1) 98%); */
+
+  background: rgb(5, 73, 135);
+  background: linear-gradient(
+    180deg,
+    rgba(5, 73, 135, 1) 0%,
+    rgba(33, 43, 116, 1) 100%
+  );
 }
 
 .lineheight {
