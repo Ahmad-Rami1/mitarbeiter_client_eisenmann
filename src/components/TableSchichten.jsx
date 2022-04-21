@@ -221,8 +221,8 @@ const Loading =({children} ) => {
               <div className="col-4 text-right minHeight20">{mt} €</div>
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2 noScroll">
-              <div className="col-8 bld noScroll minHeight20 noScroll">Km Geld <span className="smallText noScroll">(nur freigegebene Schichten)</span></div>
-              <div className="col-4 text-right minHeight20 noScroll"><span className="smallText mr-2 noScroll">{parseFloat(km).toFixed(2)} km</span> {parseFloat(km * 0.30).toFixed(2)} €</div>
+              <div className="col-7 bld noScroll minHeight20 noScroll">Km Geld <span className="smallText noScroll">(nur freigegebene Schichten)</span></div>
+              <div className="col-5 text-right minHeight20 noScroll"><span className="smallText mr-1 noScroll">{parseFloat(km).toFixed(2)} km</span> {parseFloat(km * 0.30).toFixed(2)} €</div>
             </div>
             <div className="d-flex flex-row justify-content-between w-100 mb-2  pt-2" style={{borderTop: "solid 1px #ffffff"}}>
               <div className="col-8 bld noScroll minHeight20">Gesamtnettobeträge</div>
