@@ -1485,6 +1485,9 @@ body > div > div > div > div > form {
     z-index: 99;
   }
 
+  a.nav-link {
+    font-size: 20px;
+  }
   .dateinput1 {
     width: 120px;
   }
