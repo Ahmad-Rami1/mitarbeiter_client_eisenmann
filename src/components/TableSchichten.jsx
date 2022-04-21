@@ -22,6 +22,7 @@ const TableSchichten = (props) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const getData = async() => {
       const res = await publicRequest.get(`schicht/get_schichten.php?month=${props.month}&year=${props.year}&mitarbeiterId=${user.id}`, config )
       setSchichten(res.data.data);

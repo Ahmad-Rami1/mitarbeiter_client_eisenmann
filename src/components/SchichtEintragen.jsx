@@ -31,8 +31,8 @@ const SchichtEintragen = (props) => {
     Pause: "30",
     bauKm: "",
     pkwKm: "",
-    abfahrtTime: "",
-    ankunftTime: "",
+    abfahrtTime: props.state.vondat,
+    ankunftTime: props.state.bisdat,
     qual: props.state.qualnr,
     qualGDI: props.state.qualif,
     bereitStd: "0",
@@ -79,6 +79,10 @@ const SchichtEintragen = (props) => {
   };
   const handleAusfallChange = () => {
     setAusfallSchicht(!ausfallSchicht);
+  };
+
+  const checkKeyDown = (e) => {
+    if (e.code === 'Enter') e.preventDefault();
   };
 
   const submitHandler = (e) => {
@@ -176,6 +180,7 @@ const SchichtEintragen = (props) => {
           
           <form
             onSubmit={(e) => submitHandler(e)}
+            onKeyDown={(e) => checkKeyDown(e)}
             className="frm1"
             encType="multipart/form-data"
           >
