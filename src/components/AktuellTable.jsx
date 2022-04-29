@@ -143,7 +143,7 @@ const AktuellTable = (props) => {
   useEffect(() => {
     const getAktSchichten = async () => {
       const res = await publicRequest.get(
-        "/gdi/aktuelleSchichten.php?mitarbeiterId=" + user.id,
+        `/gdi/aktuelleSchichten.php?mitarbeiterId=${user.id}&niederlassung=${user.niederlassung}`,
         config
       );
       await setAktuelleSchichten(res.data.data);
