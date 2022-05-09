@@ -34,11 +34,13 @@ const SchichtEintragen = (props) => {
     abfahrtTime: props.state.vondat,
     ankunftTime: props.state.bisdat,
     qual: props.state.qualnr,
-    qualGDI: props.state.qualif,
+    qualGDI:   props.state.qualif ,
+    qualGDI2:  props.state.qualif2 ,
     bereitStd: "0",
     bereitMin: "0",
     stdzettel: "",
     einsatzort: props.state.bauvor,
+    bemerkungen:""
   });
 
   const changeHandler = (e) => {
@@ -101,6 +103,7 @@ const SchichtEintragen = (props) => {
       ankunftTime: schichtData.ankunftTime,
       qual: schichtData.qual,
       qualGDI: schichtData.qualGDI,
+      qualGDI2: schichtData.qualGDI2,
       bereitStd: schichtData.bereitStd === "" ? "0" : schichtData.bereitStd,
       bereitMin: schichtData.bereitMin === "" ? "0" : schichtData.bereitMin,
       stdzettel: schichtData.stdzettel,
@@ -111,7 +114,8 @@ const SchichtEintragen = (props) => {
       vornameName: user.vorname + " " + user.nachname,
       vmaJson: vma28,
       ausfallJson: ausfallSchicht,
-      posnr: props.state.posnr
+      posnr: props.state.posnr,
+      bemerkungen: schichtData.bemerkungen
     };
 
     try {
@@ -205,7 +209,7 @@ const SchichtEintragen = (props) => {
               </div>
               <div className="col-6 col-sm-9 col-md-2 textRight">
                 <div className="control-group noScroll colorBlue">
-                  {props.state.qualif}
+                  {props.state.qualif2 ==="0" ? props.state.qualif : props.state.qualif +" - " + props.state.qualif2}
                 </div>
               </div>
               <div className="col-6 col-sm-3 col-md-2 mb-2 bold bluu vertical d-flex align-items-center">
@@ -298,6 +302,7 @@ const SchichtEintragen = (props) => {
                   size="3"
                   className="inpuPause mb-1"
                   name="Pause"
+                  max={240}
                   onChange={(e) => changeHandler(e)}
                   value={schichtData.Pause}
                   required
@@ -350,6 +355,7 @@ const SchichtEintragen = (props) => {
                   className="inputtkm text-right"
                   size="3"
                   name="pkwKm"
+                  max={1000}
                   value={schichtData.pkwKm}
                   onChange={(e) => changeHandler(e)}
                   placeholder="0 Km"
@@ -411,6 +417,7 @@ const SchichtEintragen = (props) => {
                   name="bauKm"
                   onChange={(e) => changeHandler(e)}
                   placeholder="0 Km"
+                  max={1000}
                   id="km"
                 />
               </div>
@@ -447,6 +454,7 @@ const SchichtEintragen = (props) => {
                   className="inputtkm"
                   name="stdzettel"
                   maxLength="8"
+                  max={70000}
                   value={schichtData.stdzettel}
                   onChange={(e) => changeHandler(e)}
                   placeholder="z.B. 123456"
@@ -479,6 +487,14 @@ const SchichtEintragen = (props) => {
                   </div>
                 </div>
               </div>
+              <div className="row g-2 border-top1 my-3">
+                <div className="col-12 col-sm-12 col-md-12 mb-2  bold pr-0 bluu marto vertical d-flex align-items-center  ">
+                 Bemerkungen:
+                  </div>
+                  <div className="col-12 col-sm-12 col-md-12  bold pr-0 bluu marto vertical d-flex align-items-center  ">
+                    <textarea style={{height: "70px"}} name="bemerkungen" maxLength={245} onChange={(e) => changeHandler(e)} placeholder="Bemerkungen zur Schicht" className="bemerkungen w-100"></textarea>
+                  </div>
+                </div>
               <div className="row g-2 border-top1 my-3">
                 <div className="col-md-6 col-12  textRight d-flex align-items-center justify-content-end">
                   <input

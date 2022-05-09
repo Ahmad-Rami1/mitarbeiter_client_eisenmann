@@ -13,6 +13,12 @@ const NoSchicht = () => (
   </div>
 );
 
+const AllesEingetragen = () => (
+  <div className="container d-flex justify-content-center align-items-stretch h-100">
+    <h3 className="text-center noScroll text-white p-4">Sie haben alle Schichten eingetragen</h3>
+  </div>
+);
+
 const Schicht = ({ schicht }) => {
   const navigate = useNavigate();
 
@@ -77,7 +83,7 @@ const Schicht = ({ schicht }) => {
           style={{ minHeight: "30px" }}
         >
           <span className="bld noScroll"> Tätigkeit:</span>{" "}
-          <span className=" noScroll">{schicht.qualif}</span>
+          <span className=" noScroll">{schicht.qualif2 ==="" ?   schicht.qualif :  schicht.qualif + " - " + schicht.qualif2}</span> 
         </div>
         <div
           className="col-lg-4 col-12 p-2 noScroll d-flex justify-content-between align-items-stretch h-100 border-top border-secondary"
@@ -171,7 +177,7 @@ const AktuellTable = (props) => {
       className="container-fluid"
       style={{ height: "80vh", overflowY: "scroll" }}
     >
-      {aktuelleSchichte && aktuelleSchichte.length > 0 ? (
+      {aktuelleSchichte && aktuelleSchichte.length > 0 && aktuelleSchichte.filter((s) => !eingetrageneSchichte.includes(s.posnr.toString())).length !== 0 ? (
         aktuelleSchichte
           .filter((s) => !eingetrageneSchichte.includes(s.posnr.toString()))
           .map((s) => <Schicht schicht={s} />)
@@ -181,7 +187,14 @@ const AktuellTable = (props) => {
 
    
         
-      :(
+      : aktuelleSchichte &&  aktuelleSchichte.filter((s) => !eingetrageneSchichte.includes(s.posnr.toString())).length === 0  ?
+      (
+        <AllesEingetragen />
+      )
+      
+      
+      
+     : (
         <NoSchicht />
       )}
     </div>

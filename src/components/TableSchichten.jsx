@@ -50,9 +50,10 @@ const EinzelSchicht = (props) => (
     <td className="noScroll">{props.pkw_km} </td>
     <td className="noScroll">{props.baustellenkm} </td>
     <td className="noScroll">{props.materialtransport} </td>
-    <td className="noScroll">{props.qualifikation} </td>
+    <td className="noScroll">{props.qualifikation ==="0" ?props.qualifikation : props.qualifikation + " / " + props.qualifikation2} </td>
     <td className="noScroll">{props.stdzettel} </td>
     <td className="noScroll">{props.freigabe} </td>
+    <td className="noScroll">{props.bemerkungen} </td>
     <td className="noScroll">{props.id} </td>
 </tr>
 
@@ -136,6 +137,7 @@ const Loading =({children} ) => {
               <th className="noScroll" scope="col">
                 Status
               </th>
+              <th className="noScroll" scope="col">Bemerkungen</th>
               <th className="noScroll" scope="col">Schichtnr.</th>
             </tr>
           </thead>
@@ -176,9 +178,11 @@ const Loading =({children} ) => {
                     baustellenkm={s.baustellenkm}
                     materialtransport={s.materialtransport}
                     qualifikation={s.qualGDI}
+                    qualifikation2={s.qualGDI2}
                     stdzettel={s.stdzettel}
                     freigabe={s.freigabe}
                     id={s.id}
+                    bemerkungen={s.bemerkungen}
                   />
                 )
                 ;
