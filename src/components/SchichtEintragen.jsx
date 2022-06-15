@@ -5,6 +5,15 @@ import { replaceUmlaute } from "../assets/replaceUmlaut";
 import Compressor from "compressorjs";
 import {MdOutlineArrowBack }from 'react-icons/md'
 import { useNavigate } from "react-router-dom";
+import { getConfiguredCache } from 'money-clip'
+
+const cache = getConfiguredCache({
+  // version: config.cacheVersion,
+  maxAge: 565165165165165,
+  name: 'user-data',
+})
+
+
 
 
 const SchichtEintragen = (props) => {
@@ -25,30 +34,31 @@ const SchichtEintragen = (props) => {
   const [schichtData, setSchichtData] = useState({
     projektnr: props.state.projektnr,
     auftragnr: props.state.auftragnr,
-    datumAbfahrt: props.state.datum,
-    dienstbeginn: props.state.vondat,
-    dienstende: props.state.bisdat,
-    Pause: "30",
-    bauKm: "",
-    pkwKm: "",
-    abfahrtTime: props.state.vondat,
-    ankunftTime: props.state.bisdat,
+    datumAbfahrt: localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).datumAbfahrt : props.state.datum,
+    dienstbeginn: localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).dienstbeginn : props.state.vondat,
+    dienstende:localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).dienstende : props.state.bisdat,
+    Pause: localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).Pause :  "30",
+    bauKm: localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).bauKm :  "",
+    pkwKm: localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).pkwKm :  "",
+    abfahrtTime: localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).abfahrtTime : props.state.vondat,
+    ankunftTime: localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).ankunftTime : props.state.bisdat,
     qual: props.state.qualnr,
     qualGDI:   props.state.qualif ,
     qualGDI2:  props.state.qualif2 ,
-    bereitStd: "0",
-    bereitMin: "0",
-    stdzettel: "",
+    bereitStd: localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).bereitStd :  "0",
+    bereitMin:localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).bereitMin :  "0",
+    stdzettel: localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).stdzettel :  "",
     einsatzort: props.state.bauvor,
-    bemerkungen:""
+    bemerkungen:localStorage.getItem(props.state.posnr + "eisenmann") ? JSON.parse(localStorage.getItem(props.state.posnr + "eisenmann")).bemerkungen : "",
   });
 
-  const changeHandler = (e) => {
+  const changeHandler = async (e) => {
     const fieldName = e.target.getAttribute("name");
     const fieldValue = e.target.value;
     const newSchichtData = { ...schichtData };
     newSchichtData[fieldName] = fieldValue;
     setSchichtData(newSchichtData);
+   await localStorage.setItem(props.state.posnr + "eisenmann", JSON.stringify(newSchichtData))
   };
 
   const materialTransportHandler = (e) => {
@@ -109,7 +119,7 @@ const SchichtEintragen = (props) => {
       stdzettel: schichtData.stdzettel,
       einsatzort: replaceUmlaute(schichtData.einsatzort),
       bundesland: user.bundesland,
-      niederlassung: user.niederlassung,
+      niederlassung:  props.state.nl,
       mitarbeiterId: user.id,
       vornameName: user.vorname + " " + user.nachname,
       vmaJson: vma28,
@@ -144,6 +154,7 @@ const SchichtEintragen = (props) => {
             });
             setvma28(false);
             setMaterialTransport("0");
+            localStorage.removeItem(props.state.posnr + "eisenmann")
             if (image.file !== "") {
               const imageFormData = new FormData();
               imageFormData.append("image", image.file);
@@ -205,11 +216,11 @@ const SchichtEintragen = (props) => {
             </div>
             <div className="row g-2  my-2 border-top1  ">
               <div className="col-6 col-sm-3 col-md-2 mb-2 bold bluu vertical d-flex align-items-center noScroll">
-                Tätigkeit:
+                Qualifikation:
               </div>
               <div className="col-6 col-sm-9 col-md-2 textRight">
                 <div className="control-group noScroll colorBlue">
-                  {props.state.qualif2 ==="0" ? props.state.qualif : props.state.qualif +" - " + props.state.qualif2}
+                  {props.state.qualif2 ==="" ? props.state.qualif : props.state.qualif +" - " + props.state.qualif2}
                 </div>
               </div>
               <div className="col-6 col-sm-3 col-md-2 mb-2 bold bluu vertical d-flex align-items-center">
@@ -453,8 +464,8 @@ const SchichtEintragen = (props) => {
                 <input
                   className="inputtkm"
                   name="stdzettel"
-                  maxLength="8"
-                  max={70000}
+                  maxLength="26"
+                  max={99999999999999}
                   value={schichtData.stdzettel}
                   onChange={(e) => changeHandler(e)}
                   placeholder="z.B. 123456"
@@ -492,7 +503,7 @@ const SchichtEintragen = (props) => {
                  Bemerkungen:
                   </div>
                   <div className="col-12 col-sm-12 col-md-12  bold pr-0 bluu marto vertical d-flex align-items-center  ">
-                    <textarea style={{height: "70px"}} name="bemerkungen" maxLength={245} onChange={(e) => changeHandler(e)} placeholder="Bemerkungen zur Schicht" className="bemerkungen w-100"></textarea>
+                    <textarea style={{height: "70px"}} value={schichtData.bemerkungen} name="bemerkungen" maxLength={245} onChange={(e) => changeHandler(e)} placeholder="Bemerkungen zur Schicht" className="bemerkungen w-100"></textarea>
                   </div>
                 </div>
               <div className="row g-2 border-top1 my-3">

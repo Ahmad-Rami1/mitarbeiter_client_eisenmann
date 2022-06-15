@@ -11,16 +11,6 @@ const Eintragen = () => {
  
   const { state } = useLocation();
  
- 
- 
-
-  
-  
-  useEffect (() => {
-    console.log(state)
-  })
-
-
 
   if(!state){
     //Not signed in

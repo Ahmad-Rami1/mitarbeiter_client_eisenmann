@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from "react";
 import { AuthContext } from "../context/AuthContext";
 import publicRequest from "../requestMethods";
 import moment from "moment";
-import { taetigkeiting } from "../assets/taetigkeiten";
 import LoadingComp from "./LoadingComp";
 const TableSchichten = (props) => {
   const {user} = useContext(AuthContext);
@@ -50,7 +49,7 @@ const EinzelSchicht = (props) => (
     <td className="noScroll">{props.pkw_km} </td>
     <td className="noScroll">{props.baustellenkm} </td>
     <td className="noScroll">{props.materialtransport} </td>
-    <td className="noScroll">{props.qualifikation ==="0" ?props.qualifikation : props.qualifikation + " / " + props.qualifikation2} </td>
+    <td className="noScroll">{props.qualifikation2 ==="" ? props.qualifikation : props.qualifikation + " / " + props.qualifikation2} </td>
     <td className="noScroll">{props.stdzettel} </td>
     <td className="noScroll">{props.freigabe} </td>
     <td className="noScroll">{props.bemerkungen} </td>
