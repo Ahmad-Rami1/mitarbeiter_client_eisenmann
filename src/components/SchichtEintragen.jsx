@@ -7,12 +7,6 @@ import {MdOutlineArrowBack }from 'react-icons/md'
 import { useNavigate } from "react-router-dom";
 import { getConfiguredCache } from 'money-clip'
 
-const cache = getConfiguredCache({
-  // version: config.cacheVersion,
-  maxAge: 565165165165165,
-  name: 'user-data',
-})
-
 
 
 

@@ -44,6 +44,15 @@ const Navbar = (props) => {
               Übersicht
             </Link>
           </li>
+          <li
+            className={
+              props.page === "stdkonto" ? "nav-item active" : "nav-item"
+            }
+          >
+            <Link className="nav-link" to="/stdkonto">
+              Stundenkonto
+            </Link>
+          </li>
           <li className="nav-item">
             <a
               className="nav-link"

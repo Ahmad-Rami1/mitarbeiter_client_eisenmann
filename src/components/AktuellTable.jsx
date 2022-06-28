@@ -180,7 +180,7 @@ const AktuellTable = (props) => {
       {aktuelleSchichte && aktuelleSchichte.length > 0 && aktuelleSchichte.filter((s) => !eingetrageneSchichte.includes(s.posnr.toString())).length !== 0 ? (
         aktuelleSchichte
           .filter((s) => !eingetrageneSchichte.includes(s.posnr.toString()))
-          .map((s) => <Schicht schicht={s} />)
+          .map((s) => <Schicht key={s.posnr} schicht={s} />)
       ) : loading === true ? 
       
         <LoadingComp />
